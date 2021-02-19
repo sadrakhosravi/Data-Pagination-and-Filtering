@@ -173,6 +173,8 @@ header h2 {
   width: 500px;
   margin-top: 15px;
   margin-bottom: 15px;
+  text-align: center;
+  width: 100%;
 }
 
 @media screen and (min-width: 700px) {

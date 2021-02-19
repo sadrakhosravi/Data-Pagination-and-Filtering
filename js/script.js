@@ -83,3 +83,49 @@ const addPagination = function (list) {
 };
 
 addPagination(data);
+
+/*
+  The searchInputField function will display a search input and a search button on the header element
+*/
+const searchInputField = function () {
+  const inputField = `<label for="search" class="student-search">
+  <input id="search" placeholder="Search by name...">
+  <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+</label>`;
+  header.insertAdjacentHTML('beforeend', inputField);
+};
+
+searchInputField();
+
+/*
+  The searchFunction will search through the list array that will be passes as a parameter and will display
+  the students that match the search input value
+*/
+const searchFunction = function (list) {
+  const search = document.querySelector('#search');
+
+  search.addEventListener('input', e => {
+    const searchedStudents = [];
+    console.log(e.target.value);
+
+    for (let i = 0; i < list.length; i++) {
+      const firstNameLower = list[i].name.first.toLowerCase();
+      const lastNameLower = list[i].name.last.toLowerCase();
+      const inputValLower = e.target.value.toLowerCase();
+
+      //Checks to see if the current input values matches the firt or last name of any students in the data array
+      if (firstNameLower.includes(inputValLower) || lastNameLower.includes(inputValLower)) {
+        searchedStudents.push(list[i]);
+      }
+    }
+    console.log(searchedStudents);
+    if (searchedStudents.length === 0) {
+      const message = `<li class="student-item cf"><p class="no-results">Sorry, there are no students matching the name you entered.</p></li>`;
+      studentList.innerHTML = message;
+    } else {
+      showPage(searchedStudents, 1);
+      addPagination(searchedStudents);
+    }
+  });
+};
+searchFunction(data);
