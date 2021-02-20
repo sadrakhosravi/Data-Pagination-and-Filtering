@@ -23,7 +23,6 @@ const studentList = document.querySelector('.student-list');
   The showPage function will accept an array of objects and a number as parameters and will display
   a page of 9 students on the screen.
 */
-
 const showPage = function (list, page) {
   const startIndex = page * itemPerPage - itemPerPage;
   const endIndex = page * itemPerPage;
@@ -32,24 +31,24 @@ const showPage = function (list, page) {
 
   for (let i = 0; i < list.length; i++) {
     if (i >= startIndex && i < endIndex) {
+      //Eeach Student generated HTML layout
       const studentItem = ` 
-      <li class="student-item cf">
-         <div class="student-details">
-            <img class="avatar" src="${list[i].picture.medium}" alt="${list[i].name.first} ${list[i].name.last} Profile Picture">
-            <h3>${list[i].name.first} ${list[i].name.last}</h3>
-            <span class="email">${list[i].email}</span>
-         </div>
-            <div class="joined-details">
-            <span class="date">Joined ${list[i].registered.date}</span>
-         </div>
-    </li>
-    `;
+        <li class="student-item cf">
+          <div class="student-details">
+              <img class="avatar" src="${list[i].picture.medium}" alt="${list[i].name.first} ${list[i].name.last} Profile Picture">
+              <h3>${list[i].name.first} ${list[i].name.last}</h3>
+              <span class="email">${list[i].email}</span>
+          </div>
+              <div class="joined-details">
+              <span class="date">Joined ${list[i].registered.date}</span>
+          </div>
+        </li>
+      `;
       studentList.insertAdjacentHTML('beforeend', studentItem);
     }
   }
 };
 
-showPage(data, 1);
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
@@ -82,20 +81,18 @@ const addPagination = function (list) {
   });
 };
 
-addPagination(data);
-
 /*
   The searchInputField function will display a search input and a search button on the header element
 */
 const searchInputField = function () {
-  const inputField = `<label for="search" class="student-search">
-  <input id="search" placeholder="Search by name...">
-  <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
-</label>`;
+  const inputField = `
+    <label for="search" class="student-search">
+    <input id="search" placeholder="Search by name...">
+    <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+    </label>
+    `;
   header.insertAdjacentHTML('beforeend', inputField);
 };
-
-searchInputField();
 
 /*
   The searchFunction will search through the list array that will be passes as a parameter and will display
@@ -104,9 +101,9 @@ searchInputField();
 const searchFunction = function (list) {
   const search = document.querySelector('#search');
 
+  //Detects any user input in the field
   search.addEventListener('input', e => {
     const searchedStudents = [];
-    console.log(e.target.value);
 
     for (let i = 0; i < list.length; i++) {
       const firstNameLower = list[i].name.first.toLowerCase();
@@ -118,7 +115,7 @@ const searchFunction = function (list) {
         searchedStudents.push(list[i]);
       }
     }
-    console.log(searchedStudents);
+    //No students found error message
     if (searchedStudents.length === 0) {
       const message = `<li class="student-item cf"><p class="no-results">Sorry, there are no students matching the name you entered.</p></li>`;
       studentList.innerHTML = message;
@@ -128,4 +125,9 @@ const searchFunction = function (list) {
     }
   });
 };
+
+//Function calls
+showPage(data, 1);
+addPagination(data);
+searchInputField();
 searchFunction(data);
