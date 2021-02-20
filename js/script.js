@@ -76,7 +76,7 @@ const addPagination = function (list) {
       const activeBtn = document.querySelector('.active');
       activeBtn.className = '';
       e.target.classList = 'active';
-      showPage(data, e.target.textContent);
+      showPage(list, e.target.textContent);
     }
   });
 };
