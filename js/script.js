@@ -119,6 +119,7 @@ const searchFunction = function (list) {
     if (searchedStudents.length === 0) {
       const message = `<li class="student-item cf"><p class="no-results">Sorry, there are no students matching the name you entered.</p></li>`;
       studentList.innerHTML = message;
+      linkList.innerHTML = '';
     } else {
       showPage(searchedStudents, 1);
       addPagination(searchedStudents);
